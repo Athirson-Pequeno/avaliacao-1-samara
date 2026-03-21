@@ -3,6 +3,7 @@ require("./database/db.js")
 const express = require("express");
 
 const app = express();
+const bodyParser = require("body-parser")
 
 const alunoRoutes = require("./routes/alunoRoutes.js")
 const disciplinaRoutes = require("./routes/disciplinaRoutes.js")
@@ -11,6 +12,7 @@ const professorRoutes = require("./routes/professorRoutes.js")
 const tarefaRoutes = require("./routes/tarefaRoutes.js")
 const turmaRoutes = require("./routes/turmaRoutes.js")
 
+app.use(bodyParser.json())
 app.use("/alunos", alunoRoutes);
 app.use("/disciplinas", disciplinaRoutes);
 app.use("/perfis", perfilRoutes);

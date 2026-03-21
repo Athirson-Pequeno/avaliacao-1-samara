@@ -32,7 +32,7 @@ const criarDisciplina = async (req, res) => {
       disciplina: novaDisciplina,
     });
   } catch (error) {
-    return errorResponse(res);
+    errorResponse(res);
   }
 };
 
@@ -111,7 +111,7 @@ const editarDisciplina = async (req, res) => {
       disciplina,
     });
   } catch (error) {
-    return errorResponse(res);
+    return errorResponse(res, error);
   }
 };
 
