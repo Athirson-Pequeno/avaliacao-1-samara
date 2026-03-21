@@ -19,6 +19,13 @@ const criarTarefa = async (req, res) => {
 
     await novaTarefa.save();
 
+    if (Array.isArray(disciplinasIds) && disciplinasIds.length > 0) {
+      await Disciplina.updateMany(
+        { _id: { $in: disciplinasIds } },
+        { $addToSet: { tarefas: novaTarefa._id } }
+      );
+    }
+
     return res.status(201).json({
       message: "Tarefa criada com sucesso!",
       tarefa: novaTarefa,
