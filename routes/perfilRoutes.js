@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const perfilController = require("../controllers/perfilController.js");
+const perfilController = require("../controllers/perfilController");
+const { autenticar, autorizar } = require("../middlewares/authMiddleware");
 
-router.get("", perfilController.obterTodosPerfis);
-router.post("", perfilController.criarPerfil);
-router.delete("/:id", perfilController.deletarPerfil);
-router.put("/:id", perfilController.editarPerfil);
+router.get("", autenticar, perfilController.obterTodosPerfis);
+router.post("", autenticar, autorizar("aluno"), perfilController.criarPerfil);
+router.delete("/:id", autenticar, autorizar("professor"), perfilController.deletarPerfil);
+router.put("/:id", autenticar, autorizar("aluno"), perfilController.editarPerfil);
 
 module.exports = router;

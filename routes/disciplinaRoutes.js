@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const disciplinaController = require("../controllers/disciplinaController.js");
+const disciplinaController = require("../controllers/disciplinaController");
+const { autenticar, autorizar } = require("../middlewares/authMiddleware");
 
-router.get("", disciplinaController.obterTodasDisciplinas);
-router.post("", disciplinaController.criarDisciplina);
-router.delete("/:id", disciplinaController.deletarDisciplina);
-router.put("/:id", disciplinaController.editarDisciplina);
+router.get("", autenticar, disciplinaController.obterTodasDisciplinas);
+router.post("", autenticar, autorizar("professor"), disciplinaController.criarDisciplina);
+router.delete("/:id", autenticar, autorizar("professor"), disciplinaController.deletarDisciplina);
+router.put("/:id", autenticar, autorizar("professor"), disciplinaController.editarDisciplina);
 
 module.exports = router;

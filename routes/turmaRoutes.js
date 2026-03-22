@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const turmaController = require("../controllers/turmaController.js");
+const turmaController = require("../controllers/turmaController");
+const { autenticar, autorizar } = require("../middlewares/authMiddleware");
 
-router.get("", turmaController.obterTodasTurmas);
-router.post("", turmaController.criarTurma);
-router.delete("/:id", turmaController.deletarTurma);
-router.put("/:id", turmaController.editarTurma);
+router.get("", autenticar, turmaController.obterTodasTurmas);
+router.post("", autenticar, autorizar("professor"), turmaController.criarTurma);
+router.delete("/:id", autenticar, autorizar("professor"), turmaController.deletarTurma);
+router.put("/:id", autenticar, autorizar("professor"), turmaController.editarTurma);
 
 module.exports = router;
