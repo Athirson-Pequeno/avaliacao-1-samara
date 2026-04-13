@@ -26,6 +26,12 @@ app.use("/tarefas", tarefaRoutes);
 app.use("/turmas", turmaRoutes);
 app.use("/auth", authRoutes);
 
+// Ping para não dormir no Render
+const https = require('https');
+setInterval(() => {
+  https.get('https://avaliacao-1-samara.onrender.com');
+}, 14 * 60 * 1000);
+
 app.listen(3000, () => {
     console.log("Servidor rodando na porta 3000");
 });
